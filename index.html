@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Positive Language Training - BCBS</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f8fb;
+      color: #333;
+    }
+    h1, h2, h3 {
+      color: #004080;
+    }
+    .question {
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input[type="text"], select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #0073e6;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    .correct {
+      color: green;
+    }
+    .incorrect {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Blue Cross Blue Shield: Positive Language Training</h1>
+  <p>Practice identifying and using positive customer service language in a healthcare call center context.</p>
+
+  <h2>Why Positive Framing Matters</h2>
+  <ul>
+    <li>Creates better member experience and higher satisfaction</li>
+    <li>Reduces escalations and complaints</li>
+    <li>Builds trust and rapport</li>
+    <li>Increases efficiency in resolving issues</li>
+  </ul>
+
+  <h2>Part 1: Recognizing Negative Language</h2>
+  <div class="question">
+    <h3>Multiple Choice: Which of the following is a positive reframe of "We don’t offer that service"?</h3>
+    <form id="q1">
+      <label><input type="radio" name="q1" value="a"> That's not something we do.</label>
+      <label><input type="radio" name="q1" value="b"> We specialize in these services that may help you.</label>
+      <label><input type="radio" name="q1" value="c"> We can’t help with that.</label>
+      <label><input type="radio" name="q1" value="d"> We don't provide that benefit.</label>
+      <button type="button" onclick="checkAnswer('q1', 'b')">Submit</button>
+      <p id="result-q1"></p>
+    </form>
+  </div>
+
+  <div class="question">
+    <h3>Fill in the Blank: Rewrite this statement with a positive tone.</h3>
+    <p>Original: "Your payment failed."<br>
+    Positive Reframe: "<input type="text" id="q2" placeholder="Enter your response">"
+    <button type="button" onclick="checkFillIn('q2', ['We can help process your payment now', 'Let’s try processing your payment again'])">Submit</button>
+    <p id="result-q2"></p>
+  </div>
+
+  <h2>Part 2: Positive Phrasing Strategies</h2>
+  <div class="question">
+    <h3>Multiple Choice: What’s a good alternative to saying "You have to fill out this form"?</h3>
+    <form id="q3">
+      <label><input type="radio" name="q3" value="a"> You must fill this out.</label>
+      <label><input type="radio" name="q3" value="b"> It’s required.</label>
+      <label><input type="radio" name="q3" value="c"> We recommend filling out this form to complete your request.</label>
+      <label><input type="radio" name="q3" value="d"> No exceptions without the form.</label>
+      <button type="button" onclick="checkAnswer('q3', 'c')">Submit</button>
+      <p id="result-q3"></p>
+    </form>
+  </div>
+
+  <h2>Part 3: Practical Scenarios</h2>
+  <div class="question">
+    <h3>Scenario: A member calls about a discontinued plan.</h3>
+    <p>Original: "No, that model is discontinued."<br>
+    Rewrite with a positive framing:</p>
+    <textarea id="q4" rows="3" placeholder="Enter your response"></textarea>
+    <button type="button" onclick="checkFillIn('q4', ['We’ve upgraded to the new XYZ model with these improved features'])">Submit</button>
+    <p id="result-q4"></p>
+  </div>
+
+  <h2>Part 4: Advanced Framing Techniques</h2>
+  <div class="question">
+    <h3>Feel-Felt-Found Method</h3>
+    <p>Use the "Feel, Felt, Found" method to respond to a member who is upset that something isn’t covered after 30 days.</p>
+    <textarea id="q5" rows="4" placeholder="Type your response using 'feel, felt, found'"></textarea>
+    <button type="button" onclick="checkFeelFeltFound('q5')">Submit</button>
+    <p id="result-q5"></p>
+  </div>
+
+  <h2>Part 5: Cultural Considerations</h2>
+  <p>In the U.S., customer service language emphasizes empathy, empowerment, and clarity. Example phrases:</p>
+  <ul>
+    <li>"I'm happy to help with that"</li>
+    <li>"Thank you for your patience"</li>
+    <li>"Let me take care of that for you"</li>
+    <li>"I'll find that answer for you"</li>
+  </ul>
+
+  <h2>Quick Reference: Positive Alternatives</h2>
+  <ul>
+    <li>Instead of: "That's not our policy" → Say: "Our policy is designed to..."</li>
+    <li>Instead of: "You have to..." → Say: "We recommend..."</li>
+    <li>Instead of: "You didn’t understand" → Say: "Let me explain that another way"</li>
+    <li>Instead of: "No, we don’t do that" → Say: "Here’s what we can do for you"</li>
+  </ul>
+
+  <script>
+    function checkAnswer(questionId, correctAnswer) {
+      const form = document.getElementById(questionId);
+      const selected = form.querySelector('input[type="radio"]:checked');
+      const result = document.getElementById(`result-${questionId}`);
+      if (!selected) {
+        result.textContent = "Please select an answer.";
+        result.className = "incorrect";
+        return;
+      }
+      if (selected.value === correctAnswer) {
+        result.textContent = "Correct!";
+        result.className = "correct";
+      } else {
+        result.textContent = "Incorrect. Try again.";
+        result.className = "incorrect";
+      }
+    }
+
+    function checkFillIn(inputId, correctAnswers) {
+      const userInput = document.getElementById(inputId).value.trim().toLowerCase();
+      const result = document.getElementById(`result-${inputId}`);
+      const isCorrect = correctAnswers.some(answer => userInput.includes(answer.toLowerCase()));
+      result.textContent = isCorrect ? "Great phrasing!" : "Consider rewording that with a positive and helpful tone.";
+      result.className = isCorrect ? "correct" : "incorrect";
+    }
+
+    function checkFeelFeltFound(inputId) {
+      const input = document.getElementById(inputId).value.toLowerCase();
+      const result = document.getElementById(`result-${inputId}`);
+      if (input.includes("feel") && input.includes("felt") && input.includes("found")) {
+        result.textContent = "Great use of the Feel-Felt-Found technique!";
+        result.className = "correct";
+      } else {
+        result.textContent = "Try using 'feel', 'felt', and 'found' to structure your response.";
+        result.className = "incorrect";
+      }
+    }
+  </script>
+</body>
+</html>
