@@ -3,141 +3,144 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Positive Language Training - Blue Cross Blue Shield</title>
+  <title>🩺 Clear & Concise Game</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      line-height: 1.6;
-    }
-    h1, h2 {
-      color: #2a5d9f;
-    }
-    .question {
-      margin-bottom: 20px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-    .question p {
-      font-weight: bold;
-    }
-    label {
-      display: block;
-      margin-left: 20px;
-    }
+    body { font-family: Arial, sans-serif; background: #f0f8ff; padding: 20px; }
+    h1, h2 { color: #005b96; }
+    .section { margin-bottom: 40px; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    label, p { margin-bottom: 10px; display: block; }
+    textarea, select, input[type="text"] { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; }
+    button { margin-top: 10px; padding: 10px 20px; background-color: #005b96; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+    .answer-box { background: #e6f7ff; padding: 10px; margin-top: 10px; border-left: 4px solid #005b96; }
+    .hidden { display: none; }
   </style>
 </head>
 <body>
-  <h1>Positive Language Training - Blue Cross Blue Shield</h1>
+  <h1>🩺 Clear & Concise: Speaking Professionally in Healthcare Calls</h1>
 
-  <h2>Interactive Quiz: Positive Language in Healthcare Customer Service</h2>
-  <p>Choose the most positively framed response for each scenario.</p>
-
-  <div class="question">
-    <p>1. The customer says, "I want to return this, but I lost the receipt." What’s the best response?</p>
-    <label><input type="radio" name="q1"> You can't return it without a receipt.</label>
-    <label><input type="radio" name="q1"> Returns are only allowed with a receipt.</label>
-    <label><input type="radio" name="q1"> Returns are easy with your receipt.</label>
+  <div class="section">
+    <h2>Definition</h2>
+    <p><strong>Concise language</strong> expresses an idea clearly using as few words as necessary—no more, no less.</p>
+    <ul>
+      <li>Focus on your main message.</li>
+      <li>Cut unnecessary words (just, maybe, I think, due to the fact).</li>
+      <li>Use strong, simple verbs (e.g., "cover" instead of "provide coverage for").</li>
+      <li>Avoid repetition.</li>
+      <li>Keep sentences short and professional.</li>
+    </ul>
   </div>
 
-  <div class="question">
-    <p>2. A member asks, "Are you open on Sundays?" Choose the best reply.</p>
-    <label><input type="radio" name="q2"> No, we’re closed on Sundays.</label>
-    <label><input type="radio" name="q2"> We aren’t open on Sundays.</label>
-    <label><input type="radio" name="q2"> We’re open Monday through Saturday.</label>
+  <div class="section">
+    <h2>🧸 Matching Game: What Do You Mean? (Multiple Choice)</h2>
+    <form id="mc-form">
+      <label>1. I’m calling you to inform you that...
+        <select name="q1">
+          <option value="">--Select--</option>
+          <option value="A">Let me explain to you that...</option>
+          <option value="B">I’m calling to inform you...</option>
+          <option value="C">I’m calling you in order to...</option>
+        </select>
+      </label>
+      <label>2. What I can do for you today is...
+        <select name="q2">
+          <option value="">--Select--</option>
+          <option value="A">I can…</option>
+          <option value="B">Let me try to help you...</option>
+          <option value="C">The thing that I can do is...</option>
+        </select>
+      </label>
+      <label>3. In this moment...
+        <select name="q3">
+          <option value="">--Select--</option>
+          <option value="A">At this time...</option>
+          <option value="B">Currently</option>
+          <option value="C">For the moment that is now...</option>
+        </select>
+      </label>
+      <label>4. That’s the reason why...
+        <select name="q4">
+          <option value="">--Select--</option>
+          <option value="A">Because</option>
+          <option value="B">Let me tell you the reason...</option>
+          <option value="C">For the reason that...</option>
+        </select>
+      </label>
+      <label>5. Let me explain to you that...
+        <select name="q5">
+          <option value="">--Select--</option>
+          <option value="A">Just explain</option>
+          <option value="B">I’m going to say that...</option>
+          <option value="C">So what happened was...</option>
+        </select>
+      </label>
+      <label>6. At this point in time...
+        <select name="q6">
+          <option value="">--Select--</option>
+          <option value="A">Now</option>
+          <option value="B">Actually, right now in this instant...</option>
+          <option value="C">During the current point in the time...</option>
+        </select>
+      </label>
+      <label>7. I just wanted to let you know...
+        <select name="q7">
+          <option value="">--Select--</option>
+          <option value="A">I wanted to inform you...</option>
+          <option value="B">Just wanted to give you the knowledge...</option>
+          <option value="C">I will now be letting you know...</option>
+        </select>
+      </label>
+      <label>8. I’m reaching out in order to...
+        <select name="q8">
+          <option value="">--Select--</option>
+          <option value="A">I’m calling to...</option>
+          <option value="B">I’m trying to reach out...</option>
+          <option value="C">I’m getting in contact because I want to...</option>
+        </select>
+      </label>
+      <label>9. For the reason that...
+        <select name="q9">
+          <option value="">--Select--</option>
+          <option value="A">Because</option>
+          <option value="B">Due to the fact...</option>
+          <option value="C">That’s why it is...</option>
+        </select>
+      </label>
+      <label>10. It has come to our attention that...
+        <select name="q10">
+          <option value="">--Select--</option>
+          <option value="A">We noticed...</option>
+          <option value="B">We are aware that you are...</option>
+          <option value="C">Our attention was grabbed by...</option>
+        </select>
+      </label>
+      <label>11. It is necessary for you to...
+        <select name="q11">
+          <option value="">--Select--</option>
+          <option value="A">You need to...</option>
+          <option value="B">It’s important for you to understand that you must...</option>
+          <option value="C">The thing you have to do is...</option>
+        </select>
+      </label>
+      <button type="button" onclick="checkMC()">Submit Multiple Choice</button>
+      <div id="mc-result" class="answer-box hidden"></div>
+    </form>
   </div>
 
-  <div class="question">
-    <p>3. A caller says, "I need help, but this isn’t my department." What should you say?</p>
-    <label><input type="radio" name="q3"> That's not my department.</label>
-    <label><input type="radio" name="q3"> I’ll connect you with the right department.</label>
-    <label><input type="radio" name="q3"> You need to call someone else.</label>
-  </div>
-
-  <div class="question">
-    <p>4. A member says, "My bill seems wrong." What is the best response?</p>
-    <label><input type="radio" name="q4"> That’s your responsibility.</label>
-    <label><input type="radio" name="q4"> Let me help explain that billing discrepancy.</label>
-    <label><input type="radio" name="q4"> You must have misunderstood the bill.</label>
-  </div>
-
-  <div class="question">
-    <p>5. A patient says, "The system isn’t working." What’s the best way to respond?</p>
-    <label><input type="radio" name="q5"> The system is down.</label>
-    <label><input type="radio" name="q5"> It’s broken right now.</label>
-    <label><input type="radio" name="q5"> The system will be available again at [time].</label>
-  </div>
-
-  <div class="question">
-    <p>6. A customer says, "I want to change my doctor." Choose a positive response.</p>
-    <label><input type="radio" name="q6"> You can't do that after enrollment.</label>
-    <label><input type="radio" name="q6"> Let me show you how to change your doctor.</label>
-    <label><input type="radio" name="q6"> That's against our policy.</label>
-  </div>
-
-  <div class="question">
-    <p>7. The caller says, "You made a mistake on my form." Choose the most constructive reply.</p>
-    <label><input type="radio" name="q7"> You didn’t fill it out correctly.</label>
-    <label><input type="radio" name="q7"> I’ll help you complete the missing sections.</label>
-    <label><input type="radio" name="q7"> You misunderstood the form.</label>
-  </div>
-
-  <div class="question">
-    <p>8. A member wants a refund after 45 days. What’s a positive response?</p>
-    <label><input type="radio" name="q8"> We can't process refunds after 30 days.</label>
-    <label><input type="radio" name="q8"> Refunds are only allowed within 30 days.</label>
-    <label><input type="radio" name="q8"> We're happy to process refunds within 30 days of purchase.</label>
-  </div>
-
-  <div class="question">
-    <p>9. A customer complains about waiting. How should you respond?</p>
-    <label><input type="radio" name="q9"> You'll have to wait.</label>
-    <label><input type="radio" name="q9"> I’ll be with you in approximately 5 minutes.</label>
-    <label><input type="radio" name="q9"> Everyone is waiting right now.</label>
-  </div>
-
-  <div class="question">
-    <p>10. A member is upset about a denial. Choose the best framing.</p>
-    <label><input type="radio" name="q10"> That’s not covered.</label>
-    <label><input type="radio" name="q10"> Your plan covers these services specifically.</label>
-    <label><input type="radio" name="q10"> No, we never allow that.</label>
-  </div>
-
-  <div class="question">
-    <p>11. The caller says, "I need this delivered on Saturday." Choose the positive answer.</p>
-    <label><input type="radio" name="q11"> We can deliver Monday through Friday.</label>
-    <label><input type="radio" name="q11"> No, we don't deliver on weekends.</label>
-    <label><input type="radio" name="q11"> Saturday delivery is not available.</label>
-  </div>
-
-  <div class="question">
-    <p>12. A member asks about a service not provided. Pick the best phrasing.</p>
-    <label><input type="radio" name="q12"> We don't offer that.</label>
-    <label><input type="radio" name="q12"> Here's what we can do for you instead.</label>
-    <label><input type="radio" name="q12"> That’s against our policy.</label>
-  </div>
-
-  <div class="question">
-    <p>13. A customer wants to speak with a manager. What do you say?</p>
-    <label><input type="radio" name="q13"> The manager isn’t here.</label>
-    <label><input type="radio" name="q13"> A manager will be available to call you back within 2 hours.</label>
-    <label><input type="radio" name="q13"> That’s not possible right now.</label>
-  </div>
-
-  <div class="question">
-    <p>14. The caller says, "I used the wrong doctor." Choose the best reply.</p>
-    <label><input type="radio" name="q14"> That was your mistake.</label>
-    <label><input type="radio" name="q14"> Let me explain how referrals and in-network providers work.</label>
-    <label><input type="radio" name="q14"> That’s not our problem.</label>
-  </div>
-
-  <div class="question">
-    <p>15. A customer says, "I didn’t know I needed preauthorization." What should you say?</p>
-    <label><input type="radio" name="q15"> You should have read your plan.</label>
-    <label><input type="radio" name="q15"> Let me explain how preauthorization works and how we can help.</label>
-    <label><input type="radio" name="q15"> That’s your responsibility, not ours.</label>
-  </div>
-
+  <script>
+    function checkMC() {
+      const correctAnswers = {
+        q1: 'B', q2: 'A', q3: 'B', q4: 'A', q5: 'A',
+        q6: 'A', q7: 'A', q8: 'A', q9: 'A', q10: 'A', q11: 'A'
+      };
+      const form = document.forms['mc-form'];
+      let score = 0;
+      for (const [key, val] of Object.entries(correctAnswers)) {
+        if (form[key].value === val) score++;
+      }
+      const resultBox = document.getElementById('mc-result');
+      resultBox.classList.remove('hidden');
+      resultBox.textContent = `You answered ${score} out of 11 correctly.`;
+    }
+  </script>
 </body>
 </html>
