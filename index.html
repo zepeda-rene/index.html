@@ -1,146 +1,532 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🩺 Clear & Concise Game</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #f0f8ff; padding: 20px; }
-    h1, h2 { color: #005b96; }
-    .section { margin-bottom: 40px; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    label, p { margin-bottom: 10px; display: block; }
-    textarea, select, input[type="text"] { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; }
-    button { margin-top: 10px; padding: 10px 20px; background-color: #005b96; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
-    .answer-box { background: #e6f7ff; padding: 10px; margin-top: 10px; border-left: 4px solid #005b96; }
-    .hidden { display: none; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empathy Challenge: Health Insurance Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .game-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #2196F3, #21CBF3);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .game-content {
+            padding: 30px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2196F3;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .scenario-card {
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .scenario-card:hover {
+            border-color: #2196F3;
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.1);
+        }
+
+        .scenario-type {
+            background: #2196F3;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .customer-statement {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+        }
+
+        .customer-statement::before {
+            content: "Customer says: ";
+            font-weight: bold;
+            color: #f44336;
+        }
+
+        .choices {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .choice-btn {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-size: 1em;
+        }
+
+        .choice-btn:hover {
+            border-color: #2196F3;
+            background: #f8f9ff;
+        }
+
+        .choice-btn.correct {
+            border-color: #4CAF50;
+            background: #e8f5e8;
+            animation: pulse 0.5s ease;
+        }
+
+        .choice-btn.incorrect {
+            border-color: #f44336;
+            background: #ffebee;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #e8f5e8;
+            border: 2px solid #4CAF50;
+            color: #2e7d32;
+        }
+
+        .feedback.incorrect {
+            background: #ffebee;
+            border: 2px solid #f44336;
+            color: #c62828;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 20px;
+            display: none;
+            transition: transform 0.2s ease;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .game-complete {
+            text-align: center;
+            padding: 40px;
+            display: none;
+        }
+
+        .game-complete h2 {
+            color: #4CAF50;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .final-score {
+            font-size: 1.5em;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        .restart-btn {
+            background: linear-gradient(45deg, #2196F3, #21CBF3);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-  <h1>🩺 Clear & Concise: Speaking Professionally in Healthcare Calls</h1>
+    <div class="game-container">
+        <div class="header">
+            <h1>🎯 Empathy Challenge</h1>
+            <p>Transform customer frustration into positive interactions</p>
+        </div>
 
-  <div class="section">
-    <h2>Definition</h2>
-    <p><strong>Concise language</strong> expresses an idea clearly using as few words as necessary—no more, no less.</p>
-    <ul>
-      <li>Focus on your main message.</li>
-      <li>Cut unnecessary words (just, maybe, I think, due to the fact).</li>
-      <li>Use strong, simple verbs (e.g., "cover" instead of "provide coverage for").</li>
-      <li>Avoid repetition.</li>
-      <li>Keep sentences short and professional.</li>
-    </ul>
-  </div>
+        <div class="game-content">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
 
-  <div class="section">
-    <h2>🧸 Matching Game: What Do You Mean? (Multiple Choice)</h2>
-    <form id="mc-form">
-      <label>1. I’m calling you to inform you that...
-        <select name="q1">
-          <option value="">--Select--</option>
-          <option value="A">Let me explain to you that...</option>
-          <option value="B">I’m calling to inform you...</option>
-          <option value="C">I’m calling you in order to...</option>
-        </select>
-      </label>
-      <label>2. What I can do for you today is...
-        <select name="q2">
-          <option value="">--Select--</option>
-          <option value="A">I can…</option>
-          <option value="B">Let me try to help you...</option>
-          <option value="C">The thing that I can do is...</option>
-        </select>
-      </label>
-      <label>3. In this moment...
-        <select name="q3">
-          <option value="">--Select--</option>
-          <option value="A">At this time...</option>
-          <option value="B">Currently</option>
-          <option value="C">For the moment that is now...</option>
-        </select>
-      </label>
-      <label>4. That’s the reason why...
-        <select name="q4">
-          <option value="">--Select--</option>
-          <option value="A">Because</option>
-          <option value="B">Let me tell you the reason...</option>
-          <option value="C">For the reason that...</option>
-        </select>
-      </label>
-      <label>5. Let me explain to you that...
-        <select name="q5">
-          <option value="">--Select--</option>
-          <option value="A">Just explain</option>
-          <option value="B">I’m going to say that...</option>
-          <option value="C">So what happened was...</option>
-        </select>
-      </label>
-      <label>6. At this point in time...
-        <select name="q6">
-          <option value="">--Select--</option>
-          <option value="A">Now</option>
-          <option value="B">Actually, right now in this instant...</option>
-          <option value="C">During the current point in the time...</option>
-        </select>
-      </label>
-      <label>7. I just wanted to let you know...
-        <select name="q7">
-          <option value="">--Select--</option>
-          <option value="A">I wanted to inform you...</option>
-          <option value="B">Just wanted to give you the knowledge...</option>
-          <option value="C">I will now be letting you know...</option>
-        </select>
-      </label>
-      <label>8. I’m reaching out in order to...
-        <select name="q8">
-          <option value="">--Select--</option>
-          <option value="A">I’m calling to...</option>
-          <option value="B">I’m trying to reach out...</option>
-          <option value="C">I’m getting in contact because I want to...</option>
-        </select>
-      </label>
-      <label>9. For the reason that...
-        <select name="q9">
-          <option value="">--Select--</option>
-          <option value="A">Because</option>
-          <option value="B">Due to the fact...</option>
-          <option value="C">That’s why it is...</option>
-        </select>
-      </label>
-      <label>10. It has come to our attention that...
-        <select name="q10">
-          <option value="">--Select--</option>
-          <option value="A">We noticed...</option>
-          <option value="B">We are aware that you are...</option>
-          <option value="C">Our attention was grabbed by...</option>
-        </select>
-      </label>
-      <label>11. It is necessary for you to...
-        <select name="q11">
-          <option value="">--Select--</option>
-          <option value="A">You need to...</option>
-          <option value="B">It’s important for you to understand that you must...</option>
-          <option value="C">The thing you have to do is...</option>
-        </select>
-      </label>
-      <button type="button" onclick="checkMC()">Submit Multiple Choice</button>
-      <div id="mc-result" class="answer-box hidden"></div>
-    </form>
-  </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="currentQuestion">1</div>
+                    <div class="stat-label">Question</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="score">0</div>
+                    <div class="stat-label">Score</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="streak">0</div>
+                    <div class="stat-label">Streak</div>
+                </div>
+            </div>
 
-  <script>
-    function checkMC() {
-      const correctAnswers = {
-        q1: 'B', q2: 'A', q3: 'B', q4: 'A', q5: 'A',
-        q6: 'A', q7: 'A', q8: 'A', q9: 'A', q10: 'A', q11: 'A'
-      };
-      const form = document.forms['mc-form'];
-      let score = 0;
-      for (const [key, val] of Object.entries(correctAnswers)) {
-        if (form[key].value === val) score++;
-      }
-      const resultBox = document.getElementById('mc-result');
-      resultBox.classList.remove('hidden');
-      resultBox.textContent = `You answered ${score} out of 11 correctly.`;
-    }
-  </script>
+            <div id="gameArea">
+                <div class="scenario-card">
+                    <div class="scenario-type" id="scenarioType">Claims Processing</div>
+                    <div class="customer-statement" id="customerStatement">
+                        "This is absolutely ridiculous! I've been waiting three weeks for my claim to be processed and you people keep giving me the runaround. I need this money now and I'm sick of being transferred from department to department. What kind of operation are you running here?"
+                    </div>
+                    <div class="choices" id="choices">
+                        <!-- Choices will be populated by JavaScript -->
+                    </div>
+                    <div class="feedback" id="feedback"></div>
+                    <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next Question →</button>
+                </div>
+            </div>
+
+            <div class="game-complete" id="gameComplete">
+                <h2>🎉 Congratulations!</h2>
+                <p>You've completed the Empathy Challenge!</p>
+                <div class="final-score" id="finalScore"></div>
+                <p>You're ready to handle customer interactions with empathy and professionalism!</p>
+                <button class="restart-btn" onclick="restartGame()">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const scenarios = [
+            {
+                type: "Claims Processing",
+                statement: "This is absolutely ridiculous! I've been waiting three weeks for my claim to be processed and you people keep giving me the runaround. I need this money now and I'm sick of being transferred from department to department.",
+                choices: [
+                    "I understand your frustration with the delay. Let me check your claim status right now and provide you with a clear timeline.",
+                    "Sir, claims processing takes time and we have procedures to follow. You'll need to be patient.",
+                    "I can see you've been waiting three weeks, which is longer than our typical processing time. I'm going to personally ensure we resolve this today.",
+                    "The system shows your claim is still under review. There's nothing more I can tell you at this time."
+                ],
+                correct: 2,
+                explanation: "This response acknowledges the valid concern, takes ownership, and provides immediate action with a personal commitment."
+            },
+            {
+                type: "Referral Approval",
+                statement: "My doctor referred me to a specialist two months ago and I still haven't heard anything about approval. I'm in pain every day and you're making me suffer by delaying this!",
+                choices: [
+                    "I'm sorry for the delay in your referral approval. Let me expedite this for you and get you the care you need.",
+                    "Pain management is a priority concern. I'm reviewing your referral now and will have an answer within the hour.",
+                    "Referrals can take time to process. Have you tried contacting your doctor's office about this?",
+                    "Two months is unacceptable for anyone dealing with daily pain. Let me fast-track this approval immediately."
+                ],
+                correct: 3,
+                explanation: "This response validates the customer's suffering, takes responsibility for the delay, and offers immediate action."
+            },
+            {
+                type: "Pre-Authorization",
+                statement: "Every time I need a procedure, you make me jump through hoops with pre-authorizations. I'm paying premiums every month and you act like you're doing me a favor by covering anything!",
+                choices: [
+                    "Pre-authorizations are required by your plan. I don't make the rules, I just follow them.",
+                    "I understand pre-auths feel like obstacles when you need care. Let me streamline this process for you today.",
+                    "You're right that pre-authorizations can feel frustrating. I'll walk you through exactly what's needed to get quick approval.",
+                    "Many procedures require pre-authorization for coverage. This is standard across all insurance companies."
+                ],
+                correct: 2,
+                explanation: "This response validates the customer's feelings and offers to make the process easier and clearer."
+            },
+            {
+                type: "PCP Change",
+                statement: "I've been trying to change my primary care physician for over a month and every time I call, someone tells me something different. This is insane!",
+                choices: [
+                    "Let me look at your account and make this PCP change effective immediately. You shouldn't have to wait any longer.",
+                    "I see you've had multiple calls about this. That's frustrating. Let me fix this right now and confirm your new PCP.",
+                    "PCP changes usually process within 24-48 hours. Let me check what's causing the delay in your case.",
+                    "I apologize for the confusion. Different representatives may have given you different information about the process."
+                ],
+                correct: 1,
+                explanation: "This response acknowledges the multiple contacts, validates the frustration, and promises immediate resolution."
+            },
+            {
+                type: "Benefits Explanation",
+                statement: "I don't understand why my medication isn't covered. The pharmacy said it's not on your formulary but my doctor says it's medically necessary. This is ridiculous - I can't afford $300 a month!",
+                choices: [
+                    "I understand medication costs are a real burden. Let me check for covered alternatives or see if we can get an exception approved.",
+                    "If it's not on our formulary, you'll need a prior authorization from your doctor for coverage consideration.",
+                    "$300 monthly is definitely a concern. I'll review your benefits and explore all options to reduce your cost.",
+                    "Some medications aren't covered because there are cheaper alternatives available that work just as well."
+                ],
+                correct: 2,
+                explanation: "This response acknowledges the financial impact and commits to exploring all possible solutions."
+            },
+            {
+                type: "Claim Denial",
+                statement: "You denied my claim saying it's not medically necessary, but my doctor wouldn't have ordered it if I didn't need it! This is my health we're talking about, not some luxury purchase!",
+                choices: [
+                    "I understand your concern about the denial. Let me review the clinical criteria and explain your appeal options.",
+                    "Your health is absolutely the priority here. Let me review this denial and help you through the appeal process immediately.",
+                    "Claim denials are based on medical necessity guidelines. Your doctor can submit additional documentation for review.",
+                    "The denial letter explains our reasoning. You have the right to appeal this decision within 60 days."
+                ],
+                correct: 1,
+                explanation: "This response prioritizes the customer's health concern and offers immediate assistance with the appeal process."
+            },
+            {
+                type: "Coverage Verification",
+                statement: "I went to the emergency room and now you're saying it's not covered because I didn't get pre-authorization? It was an emergency! I thought I was having a heart attack!",
+                choices: [
+                    "Emergency services don't require pre-authorization. Let me investigate why this was denied and correct it.",
+                    "That sounds like a terrifying experience. Emergency care is always covered - let me fix this billing error right away.",
+                    "Emergency room visits are covered under your plan. There may have been a coding error that I can resolve.",
+                    "You're absolutely right - emergencies don't require pre-auth. I'll reverse this denial and process payment today."
+                ],
+                correct: 1,
+                explanation: "This response acknowledges the frightening experience and reassures the customer while promising immediate action."
+            },
+            {
+                type: "Network Provider",
+                statement: "The doctor you told me was in-network billed me as out-of-network. Now I owe $2,000 because your website had wrong information!",
+                choices: [
+                    "I apologize for the website error. Let me file a grievance and work on getting those charges adjusted to in-network rates.",
+                    "Our provider directory is updated regularly, but changes can occur. You should always verify with the office first.",
+                    "$2,000 is a significant unexpected expense. I take full responsibility and will work to resolve this billing error immediately.",
+                    "If our directory showed in-network status, we'll honor that and adjust your claims accordingly."
+                ],
+                correct: 2,
+                explanation: "This response acknowledges the financial impact, takes responsibility, and commits to immediate resolution."
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let streak = 0;
+        let gameData = {
+            questions: [...scenarios],
+            answered: false
+        };
+
+        function initializeGame() {
+            shuffleArray(gameData.questions);
+            currentQuestionIndex = 0;
+            score = 0;
+            streak = 0;
+            updateStats();
+            showQuestion();
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function showQuestion() {
+            const question = gameData.questions[currentQuestionIndex];
+            gameData.answered = false;
+            
+            document.getElementById('scenarioType').textContent = question.type;
+            document.getElementById('customerStatement').innerHTML = `<strong>Customer says:</strong> "${question.statement}"`;
+            
+            const choicesContainer = document.getElementById('choices');
+            choicesContainer.innerHTML = '';
+            
+            question.choices.forEach((choice, index) => {
+                const choiceBtn = document.createElement('button');
+                choiceBtn.className = 'choice-btn';
+                choiceBtn.textContent = choice;
+                choiceBtn.onclick = () => selectAnswer(index);
+                choicesContainer.appendChild(choiceBtn);
+            });
+            
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+            
+            updateProgress();
+        }
+
+        function selectAnswer(selectedIndex) {
+            if (gameData.answered) return;
+            
+            gameData.answered = true;
+            const question = gameData.questions[currentQuestionIndex];
+            const choices = document.querySelectorAll('.choice-btn');
+            const feedback = document.getElementById('feedback');
+            
+            choices.forEach((btn, index) => {
+                if (index === question.correct) {
+                    btn.classList.add('correct');
+                } else if (index === selectedIndex && index !== question.correct) {
+                    btn.classList.add('incorrect');
+                }
+                btn.style.pointerEvents = 'none';
+            });
+            
+            if (selectedIndex === question.correct) {
+                score += 10;
+                streak++;
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = `<strong>Excellent!</strong> ${question.explanation}`;
+            } else {
+                streak = 0;
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = `<strong>Not quite.</strong> ${question.explanation}<br><br><strong>Better response:</strong> "${question.choices[question.correct]}"`;
+            }
+            
+            feedback.style.display = 'block';
+            document.getElementById('nextBtn').style.display = 'inline-block';
+            updateStats();
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex >= gameData.questions.length) {
+                showGameComplete();
+            } else {
+                showQuestion();
+            }
+        }
+
+        function showGameComplete() {
+            document.getElementById('gameArea').style.display = 'none';
+            document.getElementById('gameComplete').style.display = 'block';
+            
+            const percentage = Math.round((score / (gameData.questions.length * 10)) * 100);
+            let message = '';
+            
+            if (percentage >= 90) {
+                message = 'Outstanding! You have excellent empathy skills.';
+            } else if (percentage >= 75) {
+                message = 'Great job! You handle customer concerns well.';
+            } else if (percentage >= 60) {
+                message = 'Good effort! Practice will make you even better.';
+            } else {
+                message = 'Keep practicing! Empathy is a skill that improves with experience.';
+            }
+            
+            document.getElementById('finalScore').innerHTML = `
+                Final Score: ${score}/${gameData.questions.length * 10} (${percentage}%)<br>
+                ${message}
+            `;
+        }
+
+        function updateStats() {
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('score').textContent = score;
+            document.getElementById('streak').textContent = streak;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / gameData.questions.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function restartGame() {
+            document.getElementById('gameArea').style.display = 'block';
+            document.getElementById('gameComplete').style.display = 'none';
+            initializeGame();
+        }
+
+        // Initialize the game when page loads
+        initializeGame();
+    </script>
 </body>
 </html>
