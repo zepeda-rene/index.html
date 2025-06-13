@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empathy Challenge: Health Insurance Edition</title>
+    <title>Empathy Training for Health Insurance Agents</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             padding: 20px;
         }
-
+        
         .game-container {
             background: white;
             border-radius: 20px;
@@ -28,505 +28,669 @@
             max-width: 800px;
             width: 100%;
             overflow: hidden;
+            animation: slideIn 0.8s ease-out;
         }
-
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         .header {
-            background: linear-gradient(45deg, #2196F3, #21CBF3);
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             color: white;
             padding: 30px;
             text-align: center;
         }
-
+        
         .header h1 {
             font-size: 2.2em;
             margin-bottom: 10px;
+            font-weight: 300;
         }
-
+        
         .header p {
             opacity: 0.9;
             font-size: 1.1em;
         }
-
-        .game-content {
-            padding: 30px;
+        
+        .content {
+            padding: 40px;
         }
-
-        .stats {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 15px;
-        }
-
-        .stat-item {
+        
+        .start-screen {
             text-align: center;
         }
-
-        .stat-number {
-            font-size: 2em;
-            font-weight: bold;
-            color: #2196F3;
-        }
-
-        .stat-label {
-            color: #666;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-
-        .scenario-card {
-            background: #fff;
-            border: 2px solid #e0e0e0;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .scenario-card:hover {
-            border-color: #2196F3;
-            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.1);
-        }
-
-        .scenario-type {
-            background: #2196F3;
+        
+        .start-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
-
-        .customer-statement {
-            background: #ffebee;
-            border-left: 4px solid #f44336;
-            padding: 20px;
-            margin: 15px 0;
-            border-radius: 0 10px 10px 0;
-            font-style: italic;
-        }
-
-        .customer-statement::before {
-            content: "Customer says: ";
-            font-weight: bold;
-            color: #f44336;
-        }
-
-        .choices {
-            display: grid;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .choice-btn {
-            background: white;
-            border: 2px solid #e0e0e0;
-            padding: 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: left;
-            font-size: 1em;
-        }
-
-        .choice-btn:hover {
-            border-color: #2196F3;
-            background: #f8f9ff;
-        }
-
-        .choice-btn.correct {
-            border-color: #4CAF50;
-            background: #e8f5e8;
-            animation: pulse 0.5s ease;
-        }
-
-        .choice-btn.incorrect {
-            border-color: #f44336;
-            background: #ffebee;
-            animation: shake 0.5s ease;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        .feedback {
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 10px;
-            display: none;
-        }
-
-        .feedback.correct {
-            background: #e8f5e8;
-            border: 2px solid #4CAF50;
-            color: #2e7d32;
-        }
-
-        .feedback.incorrect {
-            background: #ffebee;
-            border: 2px solid #f44336;
-            color: #c62828;
-        }
-
-        .next-btn {
-            background: linear-gradient(45deg, #4CAF50, #45a049);
-            color: white;
+            padding: 15px 40px;
             border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
+            border-radius: 50px;
+            font-size: 1.2em;
             cursor: pointer;
-            font-size: 1.1em;
-            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .question-container {
             display: none;
-            transition: transform 0.2s ease;
         }
-
-        .next-btn:hover {
-            transform: translateY(-2px);
-        }
-
+        
         .progress-bar {
-            width: 100%;
+            background: #f0f0f0;
             height: 8px;
-            background: #e0e0e0;
             border-radius: 4px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             overflow: hidden;
         }
-
+        
         .progress-fill {
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
             height: 100%;
-            background: linear-gradient(45deg, #4CAF50, #45a049);
-            width: 0%;
             transition: width 0.5s ease;
+            border-radius: 4px;
         }
-
-        .game-complete {
-            text-align: center;
-            padding: 40px;
-            display: none;
-        }
-
-        .game-complete h2 {
-            color: #4CAF50;
-            font-size: 2.5em;
+        
+        .question-type {
+            background: #e8f4f8;
+            color: #2c5282;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            display: inline-block;
             margin-bottom: 20px;
         }
-
-        .final-score {
-            font-size: 1.5em;
-            margin: 20px 0;
-            color: #333;
+        
+        .question {
+            font-size: 1.3em;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            color: #2d3748;
         }
-
-        .restart-btn {
-            background: linear-gradient(45deg, #2196F3, #21CBF3);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
+        
+        .scenario {
+            background: #f7fafc;
+            padding: 20px;
+            border-left: 4px solid #4facfe;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 25px 0;
+        }
+        
+        .option, .text-input {
+            padding: 15px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 1.1em;
-            margin-top: 20px;
+            transition: all 0.3s ease;
+            font-size: 1em;
+            background: white;
+        }
+        
+        .option:hover {
+            border-color: #4facfe;
+            background: #f8faff;
+            transform: translateX(5px);
+        }
+        
+        .text-input {
+            cursor: text;
+            width: 100%;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 60px;
+        }
+        
+        .text-input:focus {
+            outline: none;
+            border-color: #4facfe;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(72, 187, 120, 0.3);
+        }
+        
+        .feedback {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 12px;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background: #f0fff4;
+            border: 2px solid #48bb78;
+            color: #22543d;
+        }
+        
+        .feedback.incorrect {
+            background: #fff5f5;
+            border: 2px solid #f56565;
+            color: #742a2a;
+        }
+        
+        .next-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+        
+        .next-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .results-screen {
+            display: none;
+            text-align: center;
+        }
+        
+        .score {
+            font-size: 3em;
+            font-weight: bold;
+            color: #4facfe;
+            margin: 20px 0;
+        }
+        
+        .score-message {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            color: #2d3748;
+        }
+        
+        .restart-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .restart-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .question-counter {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 20px;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
     <div class="game-container">
         <div class="header">
-            <h1>🎯 Empathy Challenge</h1>
-            <p>Transform customer frustration into positive interactions</p>
+            <h1>Empathy Training Game</h1>
+            <p>Master empathetic communication for health insurance support</p>
         </div>
-
-        <div class="game-content">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressBar"></div>
+        
+        <div class="content">
+            <div class="start-screen">
+                <h2>Welcome to Your Training!</h2>
+                <p>This interactive game will help you practice empathetic communication with health insurance members. You'll encounter scenarios involving claims, benefits, referrals, and more.</p>
+                <br>
+                <button class="start-btn" onclick="startGame()">Begin Training</button>
             </div>
-
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-number" id="currentQuestion">1</div>
-                    <div class="stat-label">Question</div>
+            
+            <div class="question-container">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="score">0</div>
-                    <div class="stat-label">Score</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="streak">0</div>
-                    <div class="stat-label">Streak</div>
-                </div>
+                <div class="question-counter"></div>
+                <div class="question-type"></div>
+                <div class="question"></div>
+                <div class="scenario"></div>
+                <div class="options"></div>
+                <textarea class="text-input" placeholder="Type your response here..." style="display: none;"></textarea>
+                <button class="submit-btn" onclick="submitAnswer()" style="display: none;">Submit Answer</button>
+                <div class="feedback"></div>
+                <button class="next-btn" onclick="nextQuestion()" style="display: none;">Next Question</button>
             </div>
-
-            <div id="gameArea">
-                <div class="scenario-card">
-                    <div class="scenario-type" id="scenarioType">Claims Processing</div>
-                    <div class="customer-statement" id="customerStatement">
-                        "This is absolutely ridiculous! I've been waiting three weeks for my claim to be processed and you people keep giving me the runaround. I need this money now and I'm sick of being transferred from department to department. What kind of operation are you running here?"
-                    </div>
-                    <div class="choices" id="choices">
-                        <!-- Choices will be populated by JavaScript -->
-                    </div>
-                    <div class="feedback" id="feedback"></div>
-                    <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next Question →</button>
-                </div>
-            </div>
-
-            <div class="game-complete" id="gameComplete">
-                <h2>🎉 Congratulations!</h2>
-                <p>You've completed the Empathy Challenge!</p>
-                <div class="final-score" id="finalScore"></div>
-                <p>You're ready to handle customer interactions with empathy and professionalism!</p>
-                <button class="restart-btn" onclick="restartGame()">Play Again</button>
+            
+            <div class="results-screen">
+                <h2>Training Complete!</h2>
+                <div class="score"></div>
+                <div class="score-message"></div>
+                <button class="restart-btn" onclick="restartGame()">Try Again</button>
             </div>
         </div>
     </div>
 
     <script>
-        const scenarios = [
+        const questions = [
             {
-                type: "Claims Processing",
-                statement: "This is absolutely ridiculous! I've been waiting three weeks for my claim to be processed and you people keep giving me the runaround. I need this money now and I'm sick of being transferred from department to department.",
-                choices: [
-                    "I understand your frustration with the delay. Let me check your claim status right now and provide you with a clear timeline.",
-                    "Sir, claims processing takes time and we have procedures to follow. You'll need to be patient.",
-                    "I can see you've been waiting three weeks, which is longer than our typical processing time. I'm going to personally ensure we resolve this today.",
-                    "The system shows your claim is still under review. There's nothing more I can tell you at this time."
-                ],
-                correct: 2,
-                explanation: "This response acknowledges the valid concern, takes ownership, and provides immediate action with a personal commitment."
+                type: "Rewrite - Concise",
+                question: "Rewrite this lengthy response to be more concise while maintaining empathy:",
+                scenario: "Original: 'I completely understand that you're frustrated about this situation with your claim, and I want you to know that I'm here to help you through this process, and I'm going to do everything I can to make sure we get this resolved for you as quickly as possible.'",
+                answer: "I understand your frustration with this claim. Let me resolve this quickly for you.",
+                feedback: "Keep empathy statements brief but genuine. Focus on action rather than lengthy reassurances."
             },
             {
-                type: "Referral Approval",
-                statement: "My doctor referred me to a specialist two months ago and I still haven't heard anything about approval. I'm in pain every day and you're making me suffer by delaying this!",
-                choices: [
-                    "I'm sorry for the delay in your referral approval. Let me expedite this for you and get you the care you need.",
-                    "Pain management is a priority concern. I'm reviewing your referral now and will have an answer within the hour.",
-                    "Referrals can take time to process. Have you tried contacting your doctor's office about this?",
-                    "Two months is unacceptable for anyone dealing with daily pain. Let me fast-track this approval immediately."
+                type: "Multiple Choice - Response",
+                question: "A member says: 'This is ridiculous! My doctor's referral was denied again!' What's the best empathetic response?",
+                options: [
+                    "I understand this is frustrating. Let me review your referral details and see what we can do.",
+                    "I'm sorry this happened. Referrals can be complicated sometimes.",
+                    "Let me check why this was denied and we'll work on a solution together.",
+                    "I can see why you're upset. These denials happen for various reasons."
                 ],
-                correct: 3,
-                explanation: "This response validates the customer's suffering, takes responsibility for the delay, and offers immediate action."
+                correct: 0,
+                feedback: "Option A combines empathy with immediate action. It acknowledges feelings without over-apologizing and commits to helping."
             },
             {
-                type: "Pre-Authorization",
-                statement: "Every time I need a procedure, you make me jump through hoops with pre-authorizations. I'm paying premiums every month and you act like you're doing me a favor by covering anything!",
-                choices: [
-                    "Pre-authorizations are required by your plan. I don't make the rules, I just follow them.",
-                    "I understand pre-auths feel like obstacles when you need care. Let me streamline this process for you today.",
-                    "You're right that pre-authorizations can feel frustrating. I'll walk you through exactly what's needed to get quick approval.",
-                    "Many procedures require pre-authorization for coverage. This is standard across all insurance companies."
-                ],
-                correct: 2,
-                explanation: "This response validates the customer's feelings and offers to make the process easier and clearer."
+                type: "Word Choice",
+                question: "Choose the strongest, most direct word to replace the phrase:",
+                scenario: "Instead of 'take a look at' your claim status...",
+                options: ["examine", "review", "check", "investigate"],
+                correct: 1,
+                feedback: "'Review' is professional, direct, and conveys thorough examination without being overly formal."
             },
             {
-                type: "PCP Change",
-                statement: "I've been trying to change my primary care physician for over a month and every time I call, someone tells me something different. This is insane!",
-                choices: [
-                    "Let me look at your account and make this PCP change effective immediately. You shouldn't have to wait any longer.",
-                    "I see you've had multiple calls about this. That's frustrating. Let me fix this right now and confirm your new PCP.",
-                    "PCP changes usually process within 24-48 hours. Let me check what's causing the delay in your case.",
-                    "I apologize for the confusion. Different representatives may have given you different information about the process."
+                type: "Rewrite - Concise",
+                question: "Make this pre-authorization explanation more concise:",
+                scenario: "Original: 'So what we need to do is get a pre-authorization from your insurance company before you can have this procedure done, and this process typically takes anywhere from 3 to 5 business days to complete, depending on the type of procedure and the information we need to gather.'",
+                answer: "We need pre-authorization for your procedure, which typically takes 3-5 business days.",
+                feedback: "Strip away unnecessary words while keeping essential information. Be direct about timelines."
+            },
+            {
+                type: "Multiple Choice - Response",
+                question: "Member: 'I can't afford this medication without coverage!' Best response:",
+                options: [
+                    "I'm sorry about the cost. Let me see if there are any programs available.",
+                    "I understand medication costs are concerning. Let me explore coverage options and assistance programs.",
+                    "That's unfortunate. Sometimes medications aren't covered under certain plans.",
+                    "I hear your concern about the cost. These situations can be difficult."
                 ],
                 correct: 1,
-                explanation: "This response acknowledges the multiple contacts, validates the frustration, and promises immediate resolution."
+                feedback: "This response validates the concern and immediately offers concrete help without dwelling on sympathy."
             },
             {
-                type: "Benefits Explanation",
-                statement: "I don't understand why my medication isn't covered. The pharmacy said it's not on your formulary but my doctor says it's medically necessary. This is ridiculous - I can't afford $300 a month!",
-                choices: [
-                    "I understand medication costs are a real burden. Let me check for covered alternatives or see if we can get an exception approved.",
-                    "If it's not on our formulary, you'll need a prior authorization from your doctor for coverage consideration.",
-                    "$300 monthly is definitely a concern. I'll review your benefits and explore all options to reduce your cost.",
-                    "Some medications aren't covered because there are cheaper alternatives available that work just as well."
-                ],
-                correct: 2,
-                explanation: "This response acknowledges the financial impact and commits to exploring all possible solutions."
+                type: "Word Choice",
+                question: "Replace this weak phrase with a strong, simple verb:",
+                scenario: "I'm going to 'put in a request for' a provider change...",
+                options: ["submit", "process", "initiate", "request"],
+                correct: 0,
+                feedback: "'Submit' is clear, professional, and action-oriented. It shows definitive action rather than intention."
             },
             {
-                type: "Claim Denial",
-                statement: "You denied my claim saying it's not medically necessary, but my doctor wouldn't have ordered it if I didn't need it! This is my health we're talking about, not some luxury purchase!",
-                choices: [
-                    "I understand your concern about the denial. Let me review the clinical criteria and explain your appeal options.",
-                    "Your health is absolutely the priority here. Let me review this denial and help you through the appeal process immediately.",
-                    "Claim denials are based on medical necessity guidelines. Your doctor can submit additional documentation for review.",
-                    "The denial letter explains our reasoning. You have the right to appeal this decision within 60 days."
+                type: "Multiple Choice - Response",
+                question: "Member: 'Why does everything take so long with you people?' Your response:",
+                options: [
+                    "I'm sorry you feel that way. Let me help you right now.",
+                    "I understand your frustration with timing. Let me expedite this for you.",
+                    "I know this seems slow. There are processes we have to follow.",
+                    "I can see you're frustrated. Let me move this forward quickly."
                 ],
                 correct: 1,
-                explanation: "This response prioritizes the customer's health concern and offers immediate assistance with the appeal process."
+                feedback: "Acknowledges the specific concern (timing) and offers a concrete solution (expedite) without being defensive."
             },
             {
-                type: "Coverage Verification",
-                statement: "I went to the emergency room and now you're saying it's not covered because I didn't get pre-authorization? It was an emergency! I thought I was having a heart attack!",
-                choices: [
-                    "Emergency services don't require pre-authorization. Let me investigate why this was denied and correct it.",
-                    "That sounds like a terrifying experience. Emergency care is always covered - let me fix this billing error right away.",
-                    "Emergency room visits are covered under your plan. There may have been a coding error that I can resolve.",
-                    "You're absolutely right - emergencies don't require pre-auth. I'll reverse this denial and process payment today."
+                type: "Rewrite - Concise",
+                question: "Simplify this PCP change explanation:",
+                scenario: "Original: 'In order to change your primary care physician, we're going to need to make sure that the new doctor you want to switch to is in your network, and then we'll need to process the change request, which could take up to 30 days to become effective.'",
+                answer: "To change your PCP, I'll verify the new doctor is in-network and process your request. Changes take up to 30 days.",
+                feedback: "Break complex processes into simple steps. State timelines clearly without over-explaining."
+            },
+            {
+                type: "Word Choice",
+                question: "Choose the best verb to show immediate action:",
+                scenario: "Let me 'take care of' this issue for you...",
+                options: ["handle", "resolve", "address", "fix"],
+                correct: 1,
+                feedback: "'Resolve' implies complete solution and shows commitment to fully addressing the member's concern."
+            },
+            {
+                type: "Multiple Choice - Response",
+                question: "Member: 'I've been trying to reach someone for hours!' Your response:",
+                options: [
+                    "I'm sorry about the wait time. How can I help you today?",
+                    "I appreciate your patience. Let me take care of everything you need right now.",
+                    "That must be frustrating. What can I help you with?",
+                    "I understand that was a long wait. I'm here to help you now."
                 ],
                 correct: 1,
-                explanation: "This response acknowledges the frightening experience and reassures the customer while promising immediate action."
+                feedback: "Shows appreciation rather than sympathy and commits to comprehensive help in one interaction."
             },
             {
-                type: "Network Provider",
-                statement: "The doctor you told me was in-network billed me as out-of-network. Now I owe $2,000 because your website had wrong information!",
-                choices: [
-                    "I apologize for the website error. Let me file a grievance and work on getting those charges adjusted to in-network rates.",
-                    "Our provider directory is updated regularly, but changes can occur. You should always verify with the office first.",
-                    "$2,000 is a significant unexpected expense. I take full responsibility and will work to resolve this billing error immediately.",
-                    "If our directory showed in-network status, we'll honor that and adjust your claims accordingly."
+                type: "Rewrite - Concise",
+                question: "Make this claim status update more direct:",
+                scenario: "Original: 'What I can tell you about your claim is that it's currently being processed by our claims department, and they're reviewing all the documentation that was submitted with your claim to make sure everything is complete and accurate.'",
+                answer: "Your claim is being processed. Our team is reviewing your documentation for completeness.",
+                feedback: "Remove filler words and redundancy. Focus on what's actually happening now."
+            },
+            {
+                type: "Word Choice",
+                question: "Replace this passive phrase with an active verb:",
+                scenario: "Your benefits 'are going to be updated' in the system...",
+                options: ["will update", "I'll update", "get updated", "become updated"],
+                correct: 1,
+                feedback: "'I'll update' shows personal responsibility and active ownership of the task."
+            },
+            {
+                type: "Multiple Choice - Response",
+                question: "Member: 'This is the third time I'm calling about the same problem!' Response:",
+                options: [
+                    "I'm sorry this hasn't been resolved yet. Let me fix this now.",
+                    "I see you've called before about this. Let me make sure we resolve this completely today.",
+                    "That's frustrating. Let me look into why this keeps happening.",
+                    "I understand this is the third call. I'll escalate this right away."
                 ],
-                correct: 2,
-                explanation: "This response acknowledges the financial impact, takes responsibility, and commits to immediate resolution."
+                correct: 1,
+                feedback: "Acknowledges the pattern without over-apologizing and commits to complete resolution."
+            },
+            {
+                type: "Rewrite - Concise",
+                question: "Streamline this benefit explanation:",
+                scenario: "Original: 'So basically what your plan covers is that you have a $20 copay for specialist visits, but you do need to get a referral from your primary care doctor first before you can see the specialist, otherwise the visit won't be covered.'",
+                answer: "Your plan has a $20 specialist copay with a required PCP referral. No referral means no coverage.",
+                feedback: "Lead with the key facts. Use simple sentence structure for complex benefit rules."
+            },
+            {
+                type: "Word Choice",
+                question: "Choose the most professional replacement:",
+                scenario: "I need to 'check up on' your authorization status...",
+                options: ["verify", "confirm", "look into", "follow up on"],
+                correct: 0,
+                feedback: "'Verify' is precise and professional, showing you're confirming specific details rather than just checking."
+            },
+            {
+                type: "Multiple Choice - Response",
+                question: "Member: 'Your company denied my surgery and now I'm in pain!' Response:",
+                options: [
+                    "I'm sorry you're in pain. Let me review the denial immediately.",
+                    "I understand you're in pain and this denial is concerning. Let me review this urgently.",
+                    "That sounds very difficult. Let me see what happened with your authorization.",
+                    "I can hear this is serious. Let me prioritize reviewing your case right now."
+                ],
+                correct: 1,
+                feedback: "Acknowledges both the physical and emotional impact while showing urgency and immediate action."
+            },
+            {
+                type: "Rewrite - Concise",
+                question: "Condense this pharmacy benefit explanation:",
+                scenario: "Original: 'When you go to the pharmacy to pick up your prescription, you'll need to make sure you have your insurance card with you, and the pharmacist will run it through their system to see what your copay is going to be for that particular medication.'",
+                answer: "Bring your insurance card to the pharmacy. They'll determine your medication copay.",
+                feedback: "Focus on what the member needs to do. Remove obvious steps and system details."
+            },
+            {
+                type: "Word Choice",
+                question: "Select the strongest action verb:",
+                scenario: "I'm going to 'work on getting' your claim processed...",
+                options: ["expedite", "prioritize", "accelerate", "fast-track"],
+                correct: 0,
+                feedback: "'Expedite' is the most professional and commonly understood term for speeding up processes."
+            },
+            {
+                type: "Multiple Choice - Response",
+                question: "Member: 'I don't understand why simple things are so complicated!' Response:",
+                options: [
+                    "I know it seems complicated. Let me break this down simply for you.",
+                    "I understand this feels overwhelming. Let me simplify this process for you.",
+                    "You're right, it can be confusing. Let me make this clearer.",
+                    "I hear your frustration. Insurance can be complex, but I'll guide you through it."
+                ],
+                correct: 1,
+                feedback: "Validates the feeling without agreeing that things should be complicated, then offers specific help."
+            },
+            {
+                type: "Rewrite - Concise",
+                question: "Shorten this appeals process explanation:",
+                scenario: "Original: 'If you want to appeal this decision, what you'll need to do is submit a written request along with any additional medical documentation that supports your case, and we have 30 days to review it and get back to you with a decision.'",
+                answer: "To appeal, submit a written request with supporting medical documentation. We'll respond within 30 days.",
+                feedback: "Use imperative verbs for instructions. Group related requirements together for clarity."
+            },
+            {
+                type: "Word Choice",
+                question: "Choose the most direct replacement:",
+                scenario: "I'm going to 'reach out to' the provider's office...",
+                options: ["contact", "call", "connect with", "get in touch with"],
+                correct: 1,
+                feedback: "'Call' is the most specific and direct. It tells the member exactly what action you're taking."
+            },
+            {
+                type: "Multiple Choice - Response",
+                question: "Member: 'Every time I call, I get a different answer!' Your response:",
+                options: [
+                    "I'm sorry for the confusion. Let me give you the correct information now.",
+                    "I understand how frustrating inconsistent information must be. Let me provide accurate details and document this for future calls.",
+                    "That shouldn't happen. Let me make sure you get the right answer this time.",
+                    "I can see why that's confusing. Let me clear this up for you."
+                ],
+                correct: 1,
+                feedback: "Acknowledges the systemic issue, provides immediate solution, and prevents future occurrences."
+            },
+            {
+                type: "Rewrite - Concise",
+                question: "Simplify this network provider explanation:",
+                scenario: "Original: 'To find out if a doctor is in your network, you can either call the number on your insurance card, or you can go online to our website and use the provider directory search tool to look up doctors in your area.'",
+                answer: "Check if a doctor is in-network by calling the number on your card or using our online provider directory.",
+                feedback: "Combine similar options into one sentence. Remove unnecessary detail about 'in your area' - that's implied."
+            },
+            {
+                type: "Word Choice",
+                question: "Select the most confident replacement:",
+                scenario: "I'll 'try to get' this resolved for you...",
+                options: ["work to resolve", "resolve", "attempt to fix", "see if I can resolve"],
+                correct: 1,
+                feedback: "'Resolve' shows confidence and commitment. Avoid words like 'try' that suggest uncertainty."
+            },
+            {
+                type: "Multiple Choice - Response",
+                question: "Member: 'I feel like I'm getting the runaround!' Response:",
+                options: [
+                    "I'm sorry you feel that way. Let me help you directly.",
+                    "I understand you feel you're not getting straight answers. I'll provide clear information and complete resolution today.",
+                    "That's not our intention. Let me take care of everything you need.",
+                    "I can see why you'd feel that way. Let me be direct about what I can do."
+                ],
+                correct: 1,
+                feedback: "Acknowledges the specific concern about lack of directness and commits to being comprehensive and clear."
             }
         ];
 
-        let currentQuestionIndex = 0;
+        let currentQuestion = 0;
         let score = 0;
-        let streak = 0;
-        let gameData = {
-            questions: [...scenarios],
-            answered: false
-        };
+        let userAnswers = [];
 
-        function initializeGame() {
-            shuffleArray(gameData.questions);
-            currentQuestionIndex = 0;
-            score = 0;
-            streak = 0;
-            updateStats();
+        function startGame() {
+            document.querySelector('.start-screen').style.display = 'none';
+            document.querySelector('.question-container').style.display = 'block';
             showQuestion();
         }
 
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
-
         function showQuestion() {
-            const question = gameData.questions[currentQuestionIndex];
-            gameData.answered = false;
+            const q = questions[currentQuestion];
+            const container = document.querySelector('.question-container');
             
-            document.getElementById('scenarioType').textContent = question.type;
-            document.getElementById('customerStatement').innerHTML = `<strong>Customer says:</strong> "${question.statement}"`;
+            // Update progress
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.querySelector('.progress-fill').style.width = progress + '%';
+            document.querySelector('.question-counter').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
             
-            const choicesContainer = document.getElementById('choices');
-            choicesContainer.innerHTML = '';
+            // Update question content
+            document.querySelector('.question-type').textContent = q.type;
+            document.querySelector('.question').textContent = q.question;
             
-            question.choices.forEach((choice, index) => {
-                const choiceBtn = document.createElement('button');
-                choiceBtn.className = 'choice-btn';
-                choiceBtn.textContent = choice;
-                choiceBtn.onclick = () => selectAnswer(index);
-                choicesContainer.appendChild(choiceBtn);
-            });
-            
-            document.getElementById('feedback').style.display = 'none';
-            document.getElementById('nextBtn').style.display = 'none';
-            
-            updateProgress();
-        }
-
-        function selectAnswer(selectedIndex) {
-            if (gameData.answered) return;
-            
-            gameData.answered = true;
-            const question = gameData.questions[currentQuestionIndex];
-            const choices = document.querySelectorAll('.choice-btn');
-            const feedback = document.getElementById('feedback');
-            
-            choices.forEach((btn, index) => {
-                if (index === question.correct) {
-                    btn.classList.add('correct');
-                } else if (index === selectedIndex && index !== question.correct) {
-                    btn.classList.add('incorrect');
-                }
-                btn.style.pointerEvents = 'none';
-            });
-            
-            if (selectedIndex === question.correct) {
-                score += 10;
-                streak++;
-                feedback.className = 'feedback correct';
-                feedback.innerHTML = `<strong>Excellent!</strong> ${question.explanation}`;
+            // Show/hide scenario
+            const scenarioEl = document.querySelector('.scenario');
+            if (q.scenario) {
+                scenarioEl.textContent = q.scenario;
+                scenarioEl.style.display = 'block';
             } else {
-                streak = 0;
-                feedback.className = 'feedback incorrect';
-                feedback.innerHTML = `<strong>Not quite.</strong> ${question.explanation}<br><br><strong>Better response:</strong> "${question.choices[question.correct]}"`;
+                scenarioEl.style.display = 'none';
             }
             
-            feedback.style.display = 'block';
-            document.getElementById('nextBtn').style.display = 'inline-block';
-            updateStats();
+            // Handle different question types
+            const optionsEl = document.querySelector('.options');
+            const textInputEl = document.querySelector('.text-input');
+            const submitBtn = document.querySelector('.submit-btn');
+            
+            if (q.type.includes('Rewrite')) {
+                // Text input question
+                optionsEl.style.display = 'none';
+                textInputEl.style.display = 'block';
+                submitBtn.style.display = 'block';
+                textInputEl.value = '';
+            } else {
+                // Multiple choice question
+                optionsEl.style.display = 'block';
+                textInputEl.style.display = 'none';
+                submitBtn.style.display = 'none';
+                
+                optionsEl.innerHTML = '';
+                q.options.forEach((option, index) => {
+                    const optionEl = document.createElement('div');
+                    optionEl.className = 'option';
+                    optionEl.textContent = option;
+                    optionEl.onclick = () => selectOption(index);
+                    optionsEl.appendChild(optionEl);
+                });
+            }
+            
+            // Hide feedback and next button
+            document.querySelector('.feedback').style.display = 'none';
+            document.querySelector('.next-btn').style.display = 'none';
+        }
+
+        function selectOption(index) {
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.style.backgroundColor = 'white');
+            options[index].style.backgroundColor = '#e8f4f8';
+            
+            setTimeout(() => {
+                checkAnswer(index);
+            }, 300);
+        }
+
+        function submitAnswer() {
+            const answer = document.querySelector('.text-input').value.trim();
+            if (!answer) {
+                alert('Please provide an answer before submitting.');
+                return;
+            }
+            checkAnswer(answer);
+        }
+
+        function checkAnswer(userAnswer) {
+            const q = questions[currentQuestion];
+            const feedbackEl = document.querySelector('.feedback');
+            let isCorrect = false;
+            
+            if (q.type.includes('Rewrite')) {
+                // For rewrite questions, we'll be lenient and give feedback
+                isCorrect = true; // We'll count all attempts as learning experiences
+                feedbackEl.className = 'feedback correct';
+                feedbackEl.innerHTML = `<strong>Sample Answer:</strong> ${q.answer}<br><br><strong>Tip:</strong> ${q.feedback}`;
+            } else {
+                // Multiple choice questions
+                isCorrect = userAnswer === q.correct;
+                feedbackEl.className = isCorrect ? 'feedback correct' : 'feedback incorrect';
+                
+                if (isCorrect) {
+                    feedbackEl.innerHTML = `<strong>Correct!</strong><br><br>${q.feedback}`;
+                    score++;
+                } else {
+                    feedbackEl.innerHTML = `<strong>Not quite.</strong><br><br><strong>Best answer:</strong> ${q.options[q.correct]}<br><br>${q.feedback}`;
+                }
+            }
+            
+            userAnswers.push({
+                question: currentQuestion,
+                userAnswer: userAnswer,
+                correct: isCorrect
+            });
+            
+            feedbackEl.style.display = 'block';
+            document.querySelector('.next-btn').style.display = 'block';
+            
+            // Disable further interaction
+            if (q.type.includes('Rewrite')) {
+                document.querySelector('.submit-btn').style.display = 'none';
+            } else {
+                document.querySelectorAll('.option').forEach(opt => {
+                    opt.onclick = null;
+                    opt.style.cursor = 'default';
+                });
+            }
         }
 
         function nextQuestion() {
-            currentQuestionIndex++;
-            
-            if (currentQuestionIndex >= gameData.questions.length) {
-                showGameComplete();
-            } else {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
                 showQuestion();
-            }
-        }
-
-        function showGameComplete() {
-            document.getElementById('gameArea').style.display = 'none';
-            document.getElementById('gameComplete').style.display = 'block';
-            
-            const percentage = Math.round((score / (gameData.questions.length * 10)) * 100);
-            let message = '';
-            
-            if (percentage >= 90) {
-                message = 'Outstanding! You have excellent empathy skills.';
-            } else if (percentage >= 75) {
-                message = 'Great job! You handle customer concerns well.';
-            } else if (percentage >= 60) {
-                message = 'Good effort! Practice will make you even better.';
             } else {
-                message = 'Keep practicing! Empathy is a skill that improves with experience.';
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.querySelector('.question-container').style.display = 'none';
+            document.querySelector('.results-screen').style.display = 'block';
+            
+            const percentage = Math.round((score / questions.filter(q => !q.type.includes('Rewrite')).length) * 100);
+            document.querySelector('.score').textContent = percentage + '%';
+            
+            let message;
+            if (percentage >= 90) {
+                message = "Outstanding! You've mastered empathetic communication.";
+            } else if (percentage >= 80) {
+                message = "Great job! You show strong empathy skills.";
+            } else if (percentage >= 70) {
+                message = "Good work! Continue practicing these techniques.";
+            } else {
+                message = "Keep practicing! Review the feedback to improve.";
             }
             
-            document.getElementById('finalScore').innerHTML = `
-                Final Score: ${score}/${gameData.questions.length * 10} (${percentage}%)<br>
-                ${message}
-            `;
-        }
-
-        function updateStats() {
-            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
-            document.getElementById('score').textContent = score;
-            document.getElementById('streak').textContent = streak;
-        }
-
-        function updateProgress() {
-            const progress = ((currentQuestionIndex + 1) / gameData.questions.length) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
+            document.querySelector('.score-message').textContent = message;
         }
 
         function restartGame() {
-            document.getElementById('gameArea').style.display = 'block';
-            document.getElementById('gameComplete').style.display = 'none';
-            initializeGame();
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            document.querySelector('.results-screen').style.display = 'none';
+            document.querySelector('.start-screen').style.display = 'block';
         }
-
-        // Initialize the game when page loads
-        initializeGame();
     </script>
 </body>
 </html>
